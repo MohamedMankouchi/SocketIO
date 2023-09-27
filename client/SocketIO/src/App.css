@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+#root {
+  height: 100vh;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Comfortaa", cursive;
+  background-color: #e6e6fa;
+}
+
+.text {
+  margin-top: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.text p,
+.text h1 {
+  margin: 0;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+.inputRoom {
+  font-size: 16px;
+  color: #4b2354;
+  line-height: 1.2;
+  height: 62px;
+  background: white;
+  padding: 0 20px 0 23px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.outerForm {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.chatContainer {
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: max-content;
+}
+
+.chatHeader {
+  height: fit-content;
+  padding: 10px;
+}
+
+.chatInput {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+.chatBody {
+  padding: 10px;
+  position: relative;
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.chatcontent {
+  height: 400px;
+}
+
+.chatcontent::-webkit-scrollbar,
+.chatBody::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
+
+#you {
+  padding: 10px;
+  background-color: #4b2354;
+  border-radius: 20px;
+  line-height: 5px;
+  color: white;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: right;
+}
+
+#other {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  padding: 10px;
+  background-color: #d62246;
+  border-radius: 20px;
+  line-height: 5px;
+  color: white;
+}
+.form {
+  margin-top: 50px;
+  width: 50%;
+  background-color: purple;
+  padding: 15px;
+  border-radius: 10px;
+  display: grid;
+  align-items: center;
+}
+
+.button-33 {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0 56px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 7px;
+  background-color: rgba(111, 10, 254, 0.39);
+  color: white;
+  font-weight: 400;
+  font-size: 16px;
+  box-shadow: 0 4px 14px 0 rgba(111, 10, 254, 0.39);
+  margin-bottom: 20px;
+}
