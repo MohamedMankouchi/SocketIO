@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import io from "socket.io-client";
 import { Chat } from "./Chat";
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("https://socketserver-yfa3.onrender.com");
 import { useSpring, animated } from "@react-spring/web";
 
 function App() {
