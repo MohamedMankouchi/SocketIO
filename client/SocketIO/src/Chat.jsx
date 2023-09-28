@@ -4,13 +4,11 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { useSpring, animated, useTransition } from "@react-spring/web";
 import useSound from "use-sound";
 import notification from "./assets/achievement-message-tone.mp3";
-import notification2 from "./assets/pristine-609.mp3";
 
 export const Chat = ({ roomId, name, socket }) => {
   const [listMessages, setListMessages] = useState([]);
   const [value, setValue] = useState("");
   const [play] = useSound(notification);
-  const [play2] = useSound(notification2);
 
   const transitions = useTransition(listMessages, {
     from: { opacity: 0, x: -400 },
