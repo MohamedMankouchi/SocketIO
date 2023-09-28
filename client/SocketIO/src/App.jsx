@@ -46,7 +46,7 @@ function App() {
             <p className="slogan">Chat made easy.</p>
           </animated.div>
           <animated.div style={springs} className="outerForm">
-            <div className="form">
+            <form className="form">
               <h1 style={{ color: "white" }}>Join Room</h1>
               <input
                 ref={ref1}
@@ -77,7 +77,7 @@ function App() {
               <button className="button-33" type="submit" onClick={joinRoom}>
                 Join Room{" "}
               </button>
-            </div>
+            </form>
           </animated.div>
         </>
       )}

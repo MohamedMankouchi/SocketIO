@@ -1,15 +1,22 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import "./App.css";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, useTransition } from "@react-spring/web";
+import useSound from "use-sound";
+import notification from "./assets/achievement-message-tone.mp3";
+import notification2 from "./assets/pristine-609.mp3";
 
 export const Chat = ({ roomId, name, socket }) => {
   const [listMessages, setListMessages] = useState([]);
   const [value, setValue] = useState("");
-  const springs = useSpring({
-    from: { x: -100, opacity: 0 },
-    to: { x: 0, opacity: 1 },
+  const [play] = useSound(notification);
+  const [play2] = useSound(notification2);
+
+  const transitions = useTransition(listMessages, {
+    from: { opacity: 0, x: -400 },
+    enter: { opacity: 1, x: 0, delay: 300, transition: "ease-in-out" },
   });
+
   const ref = useRef();
   const sendMessage = () => {
     const message = {
@@ -20,6 +27,7 @@ export const Chat = ({ roomId, name, socket }) => {
     setListMessages((prev) => [...prev, message]);
     socket.emit("sendMessage", message);
     setValue("");
+    play();
   };
 
   useEffect(() => {
@@ -31,6 +39,7 @@ export const Chat = ({ roomId, name, socket }) => {
       socket.removeListener("getMessages");
     };
   }, [socket]);
+
   return (
     <>
       <div className="chatContainer">
@@ -39,19 +48,21 @@ export const Chat = ({ roomId, name, socket }) => {
         </div>
         <div className="chatBody">
           <ScrollToBottom className="chatcontent">
-            {listMessages.map((el) => (
-              <animated.div
-                style={springs}
-                key={useId}
-                id={el.name == name ? "you" : "other"}
-              >
-                <h3>{el.currentMessage}</h3>
-                <p>{el.name}</p>
-              </animated.div>
-            ))}
+            {transitions((style, item) => {
+              return (
+                <animated.div
+                  style={style}
+                  key={item.index}
+                  id={item.name == name ? "you" : "other"}
+                >
+                  <h3>{item.currentMessage}</h3>
+                  <p>{item.name}</p>
+                </animated.div>
+              );
+            })}
           </ScrollToBottom>
         </div>
-        <div className="chatInput">
+        <form className="chatInput">
           <input
             type="text"
             placeholder="Message..."
@@ -70,7 +81,7 @@ export const Chat = ({ roomId, name, socket }) => {
           >
             Send Message
           </button>
-        </div>
+        </form>
       </div>
     </>
   );
