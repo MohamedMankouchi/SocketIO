@@ -75,7 +75,7 @@ export const Chat = ({ roomId, name, socket }) => {
             className="button-33"
             type="submit"
             onClick={sendMessage}
-            disabled={value == ""}
+            disabled={value.trim() == ""}
           >
             Send Message
           </button>
