@@ -22,6 +22,14 @@ io.on("connection", (socket) => {
     console.log(`User with id ${socket.id} joined the room number ${number}`);
   });
 
+  socket.on("writing", (data) => {
+    console.log(data);
+    socket.to(data.roomId).emit("showWriting", data);
+  });
+
+  socket.on("WritingStatus", (data) => {
+    socket.to(data.roomId).emit("showStatus", data.status);
+  });
   socket.on("sendMessage", (data) => {
     console.log(data);
     socket.to(data.roomId).emit("getMessages", data);

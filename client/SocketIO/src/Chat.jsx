@@ -10,11 +10,17 @@ export const Chat = ({ roomId, name, socket }) => {
   const [listMessages, setListMessages] = useState([]);
   const [value, setValue] = useState("");
   const [play] = useSound(notification);
-
+  const [isWriting, setIsWriting] = useState(false);
+  const [dataWriting, setDataWriting] = useState("");
   const transitions = useTransition(listMessages, {
     from: { opacity: 0, x: -400 },
     enter: { opacity: 1, x: 0, delay: 300, transition: "ease-in-out" },
   });
+
+  const checkWriting = () => {
+    console.log("writing");
+    socket.emit("writing", { name, typing: true, roomId });
+  };
 
   const ref = useRef();
   const sendMessage = () => {
@@ -34,8 +40,28 @@ export const Chat = ({ roomId, name, socket }) => {
       setListMessages((prev) => [...prev, data]);
     });
 
+    socket.on("showWriting", (status) => {
+      if (status.typing) {
+        clearTimeout();
+        setDataWriting(status.name);
+        setIsWriting(true);
+      }
+    });
+
+    socket.on("showStatus", (status) => {
+      if (!status) {
+        clearTimeout();
+        setTimeout(() => {
+          setDataWriting("");
+          setIsWriting(false);
+        }, 3000);
+      }
+    });
+
     return () => {
       socket.removeListener("getMessages");
+      socket.removeListener("showWriting");
+      socket.removeListener("showStatus");
     };
   }, [socket]);
 
@@ -61,6 +87,10 @@ export const Chat = ({ roomId, name, socket }) => {
             })}
           </ScrollToBottom>
         </div>
+
+        <div className="writing">
+          {isWriting ? <p>{dataWriting} is writing..</p> : ""}
+        </div>
         <form className="chatInput">
           <input
             type="text"
@@ -70,6 +100,10 @@ export const Chat = ({ roomId, name, socket }) => {
             ref={ref}
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            onKeyDown={checkWriting}
+            onKeyUp={() => {
+              socket.emit("WritingStatus", { roomId, status: false });
+            }}
           />
           <button
             id="button33"
