@@ -4,7 +4,8 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { useSpring, animated, useTransition } from "@react-spring/web";
 import useSound from "use-sound";
 import notification from "./assets/achievement-message-tone.mp3";
-
+import InitialsAvatar from "react-initials-avatar";
+import "react-initials-avatar/lib/ReactInitialsAvatar.css";
 export const Chat = ({ roomId, name, socket }) => {
   const [listMessages, setListMessages] = useState([]);
   const [value, setValue] = useState("");
@@ -54,7 +55,7 @@ export const Chat = ({ roomId, name, socket }) => {
                   id={item.name == name ? "you" : "other"}
                 >
                   <h3>{item.currentMessage}</h3>
-                  <p>{item.name}</p>
+                  <InitialsAvatar name={item.name} />
                 </animated.div>
               );
             })}

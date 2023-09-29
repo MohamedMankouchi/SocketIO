@@ -79,7 +79,11 @@ input {
 }
 
 #you {
+  display: flex;
+  gap: 20px;
+  justify-content: end;
   padding: 10px;
+  align-items: center;
   background-color: #4b2354;
   border-radius: 20px;
   line-height: 5px;
@@ -90,9 +94,13 @@ input {
 }
 
 #other {
+  display: flex;
+  gap: 20px;
+  justify-content: start;
+  flex-direction: row-reverse;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
-
   padding: 10px;
   background-color: #d62246;
   border-radius: 20px;
